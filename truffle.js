@@ -1,3 +1,6 @@
+const ArbProvider = require("arb-provider-truffle");
+const mnemonic = "jar deny prosper gasp flush glass core corn alarm treat leg smart";
+
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
@@ -14,6 +17,21 @@ module.exports = {
       port: 8545,         // <-- If you change this, also set the port option in .solcover.js.
       gas: 0xfffffffffff, // <-- Use this high gas value
       gasPrice: 0x01      // <-- Use this low gas price
+    },
+    arbitrum: {
+      provider: function() {
+        if(typeof this.provider.prov == 'undefined') {
+            this.provider.prov = ArbProvider.provider(
+              __dirname,
+              'build/contracts',
+              {
+                'mnemonic': mnemonic,
+              }
+            );
+        }
+        return this.provider.prov
+      },
+      network_id: "*",
     },
   },
 
