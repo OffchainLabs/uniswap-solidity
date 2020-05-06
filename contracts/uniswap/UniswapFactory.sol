@@ -2,6 +2,7 @@ pragma solidity ^0.5.0;
 
 import "./UniswapExchange.sol";
 import "../interfaces/IUniswapExchange.sol";
+import "./ArbSys.sol";
 
 
 contract UniswapFactory {
@@ -32,7 +33,8 @@ contract UniswapFactory {
     require(token != address(0));
     require(exchangeTemplate != address(0));
     require(token_to_exchange[token] == address(0));
-    UniswapExchange exchange = new UniswapExchange();
+    address payable exchangeAddress = address(uint160(ArbSys(100).cloneContract(exchangeTemplate)));
+    UniswapExchange exchange = UniswapExchange(exchangeAddress);
     exchange.setup(token);
     token_to_exchange[token] = address(exchange);
     exchange_to_token[address(exchange)] = token;
