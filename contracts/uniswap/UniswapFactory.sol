@@ -23,10 +23,12 @@ contract UniswapFactory {
   |         Factory Functions         |
   |__________________________________*/
 
-  function initializeFactory(address template) public {
+  constructor(address payable template, address arbiswapToken) public {
     require(exchangeTemplate == address(0));
     require(template != address(0));
     exchangeTemplate = template;
+
+    createExchangeImpl(template, arbiswapToken);
   }
   
   function createExchange(address token) public returns (address) {
@@ -34,6 +36,10 @@ contract UniswapFactory {
     require(exchangeTemplate != address(0));
     require(token_to_exchange[token] == address(0));
     address payable exchangeAddress = address(uint160(ArbSys(100).cloneContract(exchangeTemplate)));
+    createExchangeImpl(exchangeAddress, token);
+  }
+
+  function createExchangeImpl(address payable exchangeAddress, address token) private returns (address) {
     UniswapExchange exchange = UniswapExchange(exchangeAddress);
     exchange.setup(token);
     token_to_exchange[token] = address(exchange);
@@ -42,7 +48,6 @@ contract UniswapFactory {
     tokenCount = token_id;
     id_to_token[token_id] = token;
     emit NewExchange(token, address(exchange));
-    return address(exchange);
   }
 
   /***********************************|
