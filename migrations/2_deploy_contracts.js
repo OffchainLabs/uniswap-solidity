@@ -4,7 +4,7 @@ var ArbiswapTestToken = artifacts.require("./ArbiswapTestToken.sol");
 var FaucetWallet = artifacts.require("./FaucetWallet.sol");
 
 module.exports = async function(deployer) {
-  let realArbiswapTestTokenAddress = "0x0000000000000000000000000000000000000001";
+  let realArbiswapTestTokenAddress = "0x716f0d674efeeca329f141d0ca0d97a98057bdbf";
 
   await deployer.deploy(UniswapExchange);
   await deployer.deploy(UniswapFactory, UniswapExchange.address, realArbiswapTestTokenAddress);

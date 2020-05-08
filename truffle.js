@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const ArbProvider = require("arb-provider-truffle");
 const mnemonic = "jar deny prosper gasp flush glass core corn alarm treat leg smart";
 
@@ -25,7 +27,7 @@ module.exports = {
               __dirname,
               'build/contracts',
               {
-                'mnemonic': mnemonic,
+                'mnemonic': process.env['MNEMONIC'],
               }
             );
         }
