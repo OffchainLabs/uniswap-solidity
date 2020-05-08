@@ -63,7 +63,8 @@
     "truffle-contract": "^4.0.4",
     "truffle-hdwallet-provider": "1.0.3",
     "tslint": "^5.12.1",
-    "typechain": "^0.3.11",
+    "typechain": "^1.0.4",
+    "typechain-target-ethers": "^1.0.3",
     "typescript": "3.3.3",
     "zos-lib": "^2.1.2"
   },
